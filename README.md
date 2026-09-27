@@ -1,6 +1,14 @@
 # Leriche Poesie Sync
 
-Plugin WordPress + scripts pour synchroniser automatiquement **poesie.etienneleriche.com** vers **leriche-poesie.com** via FTP.
+Plugin WordPress qui publie automatiquement une version statique de **poesie.etienneleriche.com** sur **leriche-poesie.com**, par FTP ou FTPS.
+
+![WordPress](https://img.shields.io/badge/WordPress_5+-21759B?logo=wordpress&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP_7.4+-777BB4?logo=php&logoColor=white)
+![Licence GPL-2.0+](https://img.shields.io/badge/licence-GPL--2.0%2B-blue)
+
+## Contexte
+
+Mes poèmes sont administrés dans un WordPress, et le site public est servi en HTML statique. Ce plugin fait le pont entre les deux, sans étape manuelle.
 
 Chaque fois qu'un article ou une page est publié, modifié ou supprimé dans l'admin WordPress, le plugin :
 1. Génère les fichiers HTML statiques du site (via le thème actif)
@@ -65,7 +73,7 @@ Les 100 dernières opérations sont visibles dans la page admin **Leriche Sync**
 
 - PHP >= 7.4
 - Extension PHP `ftp` activée (pour FTP)
-- Extension PHP `ftp_ssl_connect` activée (pour FTPS, optionnel)
+- PHP compilé avec OpenSSL pour le FTPS (fonction `ftp_ssl_connect`, optionnel)
 - WordPress >= 5.0
 
 ---
@@ -88,11 +96,12 @@ La méthode `rewrite_urls()` remplace toutes les URLs absolues du site source pa
 
 ## Sécurité
 
-- Le mot de passe FTP est stocké dans la table `wp_options` de WordPress (chiffré si vous utilisez un plugin de chiffrement des options).
+- Le mot de passe FTP est stocké en clair dans la table `wp_options` : utilisez un compte FTP dédié, limité au dossier du site.
+- Les réglages et la synchronisation manuelle sont réservés aux administrateurs (`manage_options`).
 - La synchronisation manuelle utilise un nonce WordPress pour prévenir les CSRF.
 
 ---
 
-## License
+## Licence
 
 GPL-2.0+
